@@ -19,7 +19,6 @@ public class enemyScript : MonoBehaviour
     }
 
    public void TakeDamage(int damage){
-        Debug.Log("Ouch");
         health -=damage;
         if (health <= 0) Die();
     }
@@ -36,5 +35,17 @@ public class enemyScript : MonoBehaviour
         
                Destroy((gameObject));
     }
+
+    void OnCollisionEnter2D (Collision2D hit){
+            if (hit.gameObject.tag == "Player"){
+              //  hit.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * 5000);
+                //prolly add function within player script of GotHit() that would mess with their rb, add -velocity, take health, etc
+                 Debug.Log("hit player");
+                    }
+
+
+
+    }
+
 
 }
