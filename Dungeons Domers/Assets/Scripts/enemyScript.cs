@@ -5,7 +5,12 @@ using UnityEngine;
 public class enemyScript : MonoBehaviour
 {
 
-    public int health;
+    [SerializeField]
+    private float health;     // The enemy's heath
+    [SerializeField]
+    private float defense;      // Used to detemine how much damage it takes
+    [SerializeField]
+    private float attack;     // Used to determine how much damage it deals
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +23,16 @@ public class enemyScript : MonoBehaviour
         
     }
 
-   public void TakeDamage(int damage){
-        health -=damage;
+   public void TakeDamage(float damage){
+        health -= damage;
         if (health <= 0) Die();
     }
 
     void Die(){
         //for testing purposes creating a new version of itself at a random position
         Vector2 randomPosition = new Vector2(
-        Random.Range(-7, 7),
-        Random.Range(-3, 3)
+          Random.Range(-7, 7),
+          Random.Range(-3, 3)
         );
         Instantiate(gameObject, randomPosition, Quaternion.identity);
 

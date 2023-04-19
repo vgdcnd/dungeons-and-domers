@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4886702484817237876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285731564509475283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300424, guid: 872dba149c5addb49ac3649c5b9247d6, type: 3}
+    - target: {fileID: 4285731564509475283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285731564509475283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4765361086282301084, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: attack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4765361086282301084, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: health
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426818279724420283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_Name
+      value: Slimer 2.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.06961279
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+--- !u!1 &2648211021802953679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7426818279724420283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+  m_PrefabInstance: {fileID: 4886702484817237876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5325126251005414203
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648211021802953679}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 501c35ac75d6e5a419ba0c7ee88a133f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6309829418846008028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648211021802953679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611e4ea35d82e474c9a0049f6b8b8199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4886702483457477803}
+  speed: 3
+--- !u!50 &4886702483457477803 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1930189791, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+  m_PrefabInstance: {fileID: 4886702484817237876}
+  m_PrefabAsset: {fileID: 0}
