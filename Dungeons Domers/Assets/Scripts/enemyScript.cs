@@ -14,7 +14,7 @@ public class enemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // bats health Random()
     }
 
     // Update is called once per frame
@@ -26,6 +26,7 @@ public class enemyScript : MonoBehaviour
    public void TakeDamage(float damage){
         health -= damage;
         if (health <= 0) Die();
+        Debug.Log("Hit");
     }
 
     void Die(){
@@ -34,10 +35,12 @@ public class enemyScript : MonoBehaviour
           Random.Range(-7, 7),
           Random.Range(-3, 3)
         );
+
+        //
         Instantiate(gameObject, randomPosition, Quaternion.identity);
 
 
-        
+        //gameObject == self.
                Destroy((gameObject));
     }
 
@@ -45,7 +48,7 @@ public class enemyScript : MonoBehaviour
             if (hit.gameObject.tag == "Player"){
               //  hit.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * 5000);
                 //prolly add function within player script of GotHit() that would mess with their rb, add -velocity, take health, etc
-                 Debug.Log("hit player");
+            hit.gameObject.GetComponent<PlayerController>().TakeDamage(50, transform.position);
                     }
 
 

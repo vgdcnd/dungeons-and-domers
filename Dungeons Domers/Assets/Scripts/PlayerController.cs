@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Rigidbody2D rb;
     public Animator animator;
-    public float speed;      // public allows the variables to be set/adjusted within the unity engine as well as within other scripts
-    public float attackDelay;
 
-    private float lastAttack = -Mathf.Infinity;
+    // Movement variables
+    [SerializeField] private float speed;   
     private Vector2 moveDirection;
     private bool canMove = true;
+        //Force variables
+        [SerializeField] private float dampForce;
+        [SerializeField] private float forceScale;
+        private Vector2 addedForce;
+
+    //Sword swing variables
+    [SerializeField] private float attackDelay;
+    [SerializeField] private int damage;
     private bool hitAgain = true;
+    private float lastAttack = -Mathf.Infinity;
+ 
+    //Damage Variables
+    [SerializeField] private float iFrameCount;   
+    private bool canGetHit = true;
+    private float health = 100;
 
-    // get Inputs mostly, Debug.Log("output") if need 
-
-        void Update()
+    void Update()
     {
         GetInputs();
 
@@ -25,12 +35,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (canMove) Move();
-
-        Animate();
+        if (canMove)
+        {
+            Move();
+            Animate();
+        }
     }
-
-
 
     void GetInputs(){
 
@@ -42,27 +52,34 @@ public class PlayerController : MonoBehaviour
     }
     void Move(){
 
-        rb.velocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+        
+        Vector2 movePlayer = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+
+         movePlayer +=addedForce * forceScale; //Force Management
+        addedForce /= dampForce;
+        if (Mathf.Abs(addedForce.x) <= 0.1f && Mathf.Abs(addedForce.y) <= 0.1f) addedForce = Vector2.zero;
+
+        rb.velocity = movePlayer;
     }
 
     void Swing(){
         if (Time.time - lastAttack <= attackDelay) return; // checking if enough time has based so that the pplayer can swing again
 
+ 
         DisableMove();
         lastAttack = Time.time; 
-        animator.Play("Player_Attack_Up"); //would eventually need to make a whole blend tree for each animation
-        // the hitboxs are changed based on the animations so it kinda eh, would be a decent amount of time to do all of the frames just to redo it but idk
+        animator.Play("Attack_Tree"); 
 
         // 1) make sure attack doesnt call the on trigger enter multiple times for a single swing ? 
 
     }
    
-   public void EnableMove(){ //called by the animator at the end of sword swing animations
+   public void EnableMove(){ //called by the animator at the end of sword swing and hurt animations
         canMove = true ; 
         hitAgain = true;
     }
 
-     public void DisableMove(){ //stops player from moving and resets velocity to be 0, could as be made to be called by animator but idk 
+    void DisableMove(){ //stops player from moving and resets velocity to be 0, could as be made to be called by animator but idk 
         canMove = false;
         rb.velocity = new Vector2(0,0);
     }
@@ -81,16 +98,41 @@ public class PlayerController : MonoBehaviour
               //would want to be able to use animator.Play() eventually but still working on it 
     }
 
-    void OnTriggerEnter2D(Collider2D hit){ // may want to move to a seperate script or sum
-        
+    void OnTriggerEnter2D(Collider2D hit){ 
+
         if (hitAgain && hit.gameObject.tag == "Enemy"){
-            hit.gameObject.GetComponent<enemyScript>().TakeDamage(50);
+            hit.gameObject.GetComponent<enemyScript>().TakeDamage(damage);
             hitAgain = false; //supposed to make sure single swing wont hit multiple times, kinda iffy still
 
         }
 
     }
 
+    public void TakeDamage(float damage, Vector2 directionHitFrom){
+        if (!canGetHit) return;
+         //visual sprite flicker
+        animator.Play("Player_Hurt");
 
+        //KnockBack
+        addedForce += ((Vector2)transform.position - directionHitFrom).normalized  ;
+
+        //Damage Management
+        health -= damage;
+        if (health <= 0) Die();
+        Debug.Log("Player Health: " +  health.ToString());
+
+        //Invicibility frame management
+         canGetHit = false;
+         Invoke("DealWithIFrames", iFrameCount); //for iFrameCount, player will have cangetHit be false meaning they wont be able to take dmg for shot tamount of time 
+    }
+
+    public void DealWithIFrames(){
     
+        canGetHit = true;
+    }
+
+ public void Die(){
+        Debug.Log("Dead");
+ }
+
 }
