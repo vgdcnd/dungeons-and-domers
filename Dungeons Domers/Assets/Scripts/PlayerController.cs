@@ -27,6 +27,16 @@ public class PlayerController : MonoBehaviour
     private bool canGetHit = true;
     private float health = 100;
 
+    //Projectile Variables
+    private Transform firePoint;
+    [SerializeField] GameObject bullet;
+    private Vector2 lastMove = new Vector2 (0,-1); //start the player facing down
+
+
+    void Start(){
+        firePoint = gameObject.transform.GetChild(0); //might just make it serialized and drag it in, wanted to try another method tho
+    }
+
     void Update()
     {
         GetInputs();
@@ -49,6 +59,7 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector2(moveX, moveY).normalized;
 
         if(Input.GetButtonDown("Swing")) Swing();
+        else if(Input.GetButtonDown("Shoot")) Shoot();
     }
     void Move(){
 
@@ -73,6 +84,27 @@ public class PlayerController : MonoBehaviour
         // 1) make sure attack doesnt call the on trigger enter multiple times for a single swing ? 
 
     }
+
+    void Shoot(){
+        if (Time.time - lastAttack <= attackDelay) return;
+        lastAttack = Time.time; 
+
+        DisableMove();
+        animator.Play("Shoot_Tree"); //animator will adjust firepoint to make sure bullet fired at right place
+        //currently animator calls the create bulet function
+        //is easy to just invoke create bullet or remove it and just put code here, used the animator to make sure bullet was spawned on right time and stuff. .
+
+
+//        Invoke("CreateBullet", .1f);//small delay to make sure firepoint had time to be moved
+    
+
+    }
+
+   public void CreateBullet(){
+        GameObject spawnedBullet = Instantiate(bullet, firePoint.position, firePoint.rotation);
+        spawnedBullet.GetComponent<ProjectileScript>().SetUpProjectile(7f, lastMove);
+
+    }
    
    public void EnableMove(){ //called by the animator at the end of sword swing and hurt animations
         canMove = true ; 
@@ -91,8 +123,9 @@ public class PlayerController : MonoBehaviour
             
              if ( Mathf.Abs(moveDirection.x) == 1|| Mathf.Abs(moveDirection.y) == 1)
                  {
-            animator.SetFloat("lastMoveX", moveDirection.x);
-            animator.SetFloat("lastMoveY", moveDirection.y);
+                    lastMove = new Vector2 (moveDirection.x, moveDirection.y);
+            animator.SetFloat("lastMoveX", lastMove.x);
+            animator.SetFloat("lastMoveY", lastMove.y);
 
              }
               //would want to be able to use animator.Play() eventually but still working on it 
@@ -119,7 +152,7 @@ public class PlayerController : MonoBehaviour
         //Damage Management
         health -= damage;
         if (health <= 0) Die();
-        Debug.Log("Player Health: " +  health.ToString());
+       // Debug.Log("Player Health: " +  health.ToString());
 
         //Invicibility frame management
          canGetHit = false;
