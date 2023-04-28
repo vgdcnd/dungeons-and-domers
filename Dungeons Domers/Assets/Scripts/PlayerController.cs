@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bullet;
     private Vector2 lastMove = new Vector2 (0,-1); //start the player facing down
 
+    //new 
+    public Vector3 lastPosition;
+
 
     void Start(){
         firePoint = gameObject.transform.GetChild(0); //might just make it serialized and drag it in, wanted to try another method tho
@@ -167,5 +170,21 @@ public class PlayerController : MonoBehaviour
  public void Die(){
         Debug.Log("Dead");
  }
+
+    
+    public void SpawnPlayer()
+    {
+
+        Debug.Log("Spawned");
+         // here
+         
+        if (lastPosition != null)
+        {
+            transform.position = lastPosition;
+            Debug.Log(lastPosition);
+        }
+    }
+    
+
 
 }
