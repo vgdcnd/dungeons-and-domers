@@ -15,6 +15,8 @@ public class enemyScript : MonoBehaviour
     [SerializeField] 
     GameObject deathEffect; // spawn the gameobject when enemy dies
 
+    public bool respawn;
+
     // Start is called before the first frame update
    public void TakeDamage(float damage){
         health -= damage;
@@ -28,7 +30,7 @@ public class enemyScript : MonoBehaviour
           Random.Range(-7, 7),
           Random.Range(-3, 3)
         );
-        Instantiate(gameObject, randomPosition, Quaternion.identity); //problem where when instantiated the health carries over so the clone will have negative hp  
+        if (respawn) Instantiate(gameObject, randomPosition, Quaternion.identity); //problem where when instantiated the health carries over so the clone will have negative hp  
                                                                       // should not matter in the actual game tho, cuz this respawn code will be removed
 
         Instantiate(deathEffect, transform.position, Quaternion.identity);
