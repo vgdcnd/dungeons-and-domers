@@ -50,6 +50,7 @@ MonoBehaviour:
   health: 100
   defense: 0
   attack: 5
+  deathEffect: {fileID: 8819546955495785193, guid: eda23020fea0dcf4591f9b3bf9cc78d9, type: 3}
 --- !u!212 &4285731564509475283
 SpriteRenderer:
   m_ObjectHideFlags: 0

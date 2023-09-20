@@ -39,9 +39,13 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4765361086282301084, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7426818279724420283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
       propertyPath: m_Name
-      value: Bat 2.0
+      value: Bat
       objectReference: {fileID: 0}
     - target: {fileID: 7576658607590378218, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
       propertyPath: m_RootOrder

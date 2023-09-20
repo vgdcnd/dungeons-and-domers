@@ -11,37 +11,30 @@ public class enemyScript : MonoBehaviour
     private float defense;      // Used to detemine how much damage it takes
     [SerializeField]
     private float attack;     // Used to determine how much damage it deals
+    
+    [SerializeField] 
+    GameObject deathEffect; // spawn the gameobject when enemy dies
+
+    public bool respawn;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        // bats health Random()
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
    public void TakeDamage(float damage){
         health -= damage;
         if (health <= 0) Die();
-        Debug.Log("Hit");
+       // Debug.Log("Hit");
     }
 
     void Die(){
-        //for testing purposes creating a new version of itself at a random position
+        //TESTING 
         Vector2 randomPosition = new Vector2(
           Random.Range(-7, 7),
           Random.Range(-3, 3)
         );
+        if (respawn) Instantiate(gameObject, randomPosition, Quaternion.identity); //problem where when instantiated the health carries over so the clone will have negative hp  
+                                                                      // should not matter in the actual game tho, cuz this respawn code will be removed
 
-        //
-        Instantiate(gameObject, randomPosition, Quaternion.identity);
-
-
-        //gameObject == self.
-               Destroy((gameObject));
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     void OnCollisionEnter2D (Collision2D hit){

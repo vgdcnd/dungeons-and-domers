@@ -13,7 +13,7 @@ public class SpawnRandomEnemy : MonoBehaviour
     void Start(){
         
             selectEnemy = Random.Range(0, enemyList.Length);
-            Instantiate(enemyList[selectEnemy], transform.position, Quaternion.identity);
+            Instantiate(enemyList[selectEnemy], gameObject.transform.parent.transform);
             Destroy(gameObject);
     }
     
