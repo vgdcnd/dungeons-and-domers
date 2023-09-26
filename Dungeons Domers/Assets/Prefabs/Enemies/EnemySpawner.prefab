@@ -100,3 +100,5 @@ MonoBehaviour:
   enemyList:
   - {fileID: 2648211021802953679, guid: 0b86811917bb6f641be92489b782e222, type: 3}
   - {fileID: 7826121605104180322, guid: 1caf900655f81864f893c71703f01cf2, type: 3}
+  - {fileID: 501866698657899637, guid: b662bfdbb9eef6446b224eaae43b74b7, type: 3}
+  - {fileID: 2586898371931044761, guid: 28cb3c4a3c2d75047b6908287baf2b95, type: 3}

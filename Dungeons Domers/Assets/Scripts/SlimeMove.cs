@@ -23,7 +23,7 @@ public class SlimeMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D hit){
 
-        if (hit.gameObject.tag == "Wall") {
+        if (hit.gameObject.tag != "Player") { // turn around on anything but the player 
             transform.Rotate(0,180,0);
             direction *= -1;
         }

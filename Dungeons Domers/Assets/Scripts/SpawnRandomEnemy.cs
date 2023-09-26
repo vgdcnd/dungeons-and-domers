@@ -13,7 +13,9 @@ public class SpawnRandomEnemy : MonoBehaviour
     void Start(){
         
             selectEnemy = Random.Range(0, enemyList.Length);
-            Instantiate(enemyList[selectEnemy], gameObject.transform.parent.transform);
+            GameObject newEnemy = Instantiate(enemyList[selectEnemy], transform.position, Quaternion.identity);
+            if (gameObject.transform.parent) newEnemy.transform.parent= transform.parent;
+            /// if spawner is assigned a parent make sure that the new enemy is placed under same parent, otherwise can just spawn like normal
             Destroy(gameObject);
     }
     

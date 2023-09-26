@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4285731564509475283}
   - component: {fileID: 1930189791}
   - component: {fileID: 2731861739660729980}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MonoBehaviour:
   defense: 0
   attack: 5
   deathEffect: {fileID: 8819546955495785193, guid: eda23020fea0dcf4591f9b3bf9cc78d9, type: 3}
+  respawn: 0
 --- !u!212 &4285731564509475283
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
-using System.Collections;
+  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float iFrameCount;   
     private bool canGetHit = true;
     private float health = 100;
-
+    private float max_health;
     //Projectile Variables
     private Transform firePoint;
     [SerializeField] GameObject bullet;
@@ -34,10 +35,17 @@ public class PlayerController : MonoBehaviour
 
     //new 
     public Vector3 lastPosition;
+    [SerializeField] Image healthBar;
 
 
     void Start(){
         firePoint = gameObject.transform.GetChild(0); //might just make it serialized and drag it in, wanted to try another method tho
+        max_health = health;
+        /*
+            Screen.SetResolution (1920, 1080, false);
+    QualitySettings.vSyncCount = 0;
+    Application.targetFrameRate = 60;
+        */
     }
 
     void Update()
@@ -137,6 +145,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hit){ 
 
         if (hitAgain && hit.gameObject.tag == "Enemy"){
+            Debug.Log("touch enemey");
             hit.gameObject.GetComponent<enemyScript>().TakeDamage(damage);
             hitAgain = false; //supposed to make sure single swing wont hit multiple times, kinda iffy still
 
@@ -154,12 +163,13 @@ public class PlayerController : MonoBehaviour
 
         //Damage Management
         health -= damage;
+        if (healthBar) healthBar.fillAmount = health / max_health;
         if (health <= 0) Die();
        // Debug.Log("Player Health: " +  health.ToString());
 
         //Invicibility frame management
          canGetHit = false;
-         Invoke("DealWithIFrames", iFrameCount); //for iFrameCount, player will have cangetHit be false meaning they wont be able to take dmg for shot tamount of time 
+        Invoke("DealWithIFrames", iFrameCount); //for iFrameCount, player will have cangetHit be false meaning they wont be able to take dmg for shot tamount of time 
     }
 
     public void DealWithIFrames(){

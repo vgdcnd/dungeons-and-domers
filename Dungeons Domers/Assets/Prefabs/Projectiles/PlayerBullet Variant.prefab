@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4934809437265772683, guid: 58231a424188aea49a3679ba7d2d2b0e, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5828020659764514076, guid: 58231a424188aea49a3679ba7d2d2b0e, type: 3}
       propertyPath: m_Size.x
       value: 1.0062894

@@ -671,7 +671,8 @@ MonoBehaviour:
   health: 100
   defense: 0
   attack: 0
-<<<<<<< HEAD
+  deathEffect: {fileID: 0}
+  respawn: 0
 --- !u!1 &961402798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7426818279724420283, guid: db5b9c9a285927f4486605b3193d06f1, type: 3}
@@ -695,9 +696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPath: {fileID: 1096464326}
-=======
-  deathEffect: {fileID: 8819546955495785193, guid: eda23020fea0dcf4591f9b3bf9cc78d9, type: 3}
->>>>>>> a3af81a3822e191a46d4b3edfe9bc1f5f1159171
 --- !u!1 &996440972
 GameObject:
   m_ObjectHideFlags: 0
