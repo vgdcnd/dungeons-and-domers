@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 20
-  speed: 0.1
+  speed: 0.08
   animator: {fileID: 341852929}

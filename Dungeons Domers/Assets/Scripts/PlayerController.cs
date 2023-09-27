@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     //Sword swing variables
     [SerializeField] private float attackDelay;
     [SerializeField] private int damage;
-    private bool hitAgain = true;
+    private bool hitAgain = true; // determines if the player is abale to swing
+
+    private bool swinging = false; // makes sure ontrigger enter that the trigger is from sword swinging and not just enemy has a trigger
     private float lastAttack = -Mathf.Infinity;
  
     //Damage Variables
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour
  
         DisableMove();
         lastAttack = Time.time; 
+        swinging  = true;
         animator.Play("Attack_Tree"); 
 
         // 1) make sure attack doesnt call the on trigger enter multiple times for a single swing ? 
@@ -120,6 +123,7 @@ public class PlayerController : MonoBehaviour
    public void EnableMove(){ //called by the animator at the end of sword swing and hurt animations
         canMove = true ; 
         hitAgain = true;
+        swinging = false;
     }
 
     void DisableMove(){ //stops player from moving and resets velocity to be 0, could as be made to be called by animator but idk 
@@ -144,8 +148,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hit){ 
 
-        if (hitAgain && hit.gameObject.tag == "Enemy"){
+        if (swinging && hitAgain && hit.gameObject.tag == "Enemy"){
             Debug.Log("touch enemey");
+            swinging = false;
             hit.gameObject.GetComponent<enemyScript>().TakeDamage(damage);
             hitAgain = false; //supposed to make sure single swing wont hit multiple times, kinda iffy still
 

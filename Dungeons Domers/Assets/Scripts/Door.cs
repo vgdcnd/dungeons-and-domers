@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
 
 public class Door : MonoBehaviour
 {
-    public string sceneName;
-    public GameObject Hall;
+    // may want to have door be a sepearte object outside of tile set so that can easily change sprite depenign on if it is locked or not
+    private GameObject Hall, Walls;
+
+    private SpriteRenderer spriteRenderer;
     public GameObject Room;
 
-    [SerializeField] GameObject walls;
+    //private GameObject Walls;
 
-    [SerializeField] private Collider2D doorCollider; // can hard set in editor
+    private Collider2D doorCollider; // can hard set in editor
     private int roomState = 0; 
     /*
     ROOM STATE:
@@ -22,17 +23,21 @@ public class Door : MonoBehaviour
     */
     private Vector3 pushDirection;
     [SerializeField] private int doorNumber;
-    [SerializeField] private bool downFacing, upFacing, leftFacing, rightFacing; 
+    [SerializeField] private bool downFacing, upFacing, leftFacing, rightFacing;
+
+    [SerializeField] private Sprite openSprite, closedSprite;
     void Start(){
-           // can change from using four different  booleans to an integer and switch case if wanted
-           if (downFacing) pushDirection = new Vector3(0,1.5f,0); // make sure player gets pushed into room fully
-           else if (upFacing) pushDirection = new Vector3(0, -1f,0);
-            else if(leftFacing) pushDirection = new Vector3(-1f, 0, 0);
+           // can cange from using four different  booleans to an integer and switch case if wanted
+            // make sure player gets pushed into room fully especially needed when door is set to nontrigger collider
+            if (downFacing) pushDirection = new Vector3(0,1f,0); 
+            else if (upFacing) pushDirection = new Vector3(0, -1f,0);
+            else if(rightFacing) pushDirection = new Vector3(-1f, 0, 0);
 
-
-        //if (!doorNumber) parse door name to get the number manually if number hasnt been chosen in editor 
-            walls = GameObject.Find("WallsGrid");
-                    
+            Walls = GameObject.Find("WallsGrid");
+            Hall = GameObject.FindWithTag("Hall");
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            doorCollider = gameObject.GetComponent<Collider2D>();
+    
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,30 +48,35 @@ public class Door : MonoBehaviour
                     Hall.SetActive(true);
             Room.SetActive(false);
 
-                    foreach (Transform child in walls.transform){
+                    foreach (Transform child in Walls.transform){
                         child.gameObject.SetActive(true);
                     }
-                other.gameObject.transform.position += pushDirection * -1;
+                other.gameObject.transform.position += (pushDirection * -1);
                 roomState = 2;
 
             }
             // deal with player trying to re enter room after clearing it
             else { // ENTERING ROOM     
                     // lock player 
-                    
-                   
                      // want to do some cute camera transition thingy to pan to room ?  
                     Hall.SetActive(false);
                     Room.SetActive(true);
-                    foreach (Transform child in walls.transform){
+                    foreach (Transform child in Walls.transform){
                         GameObject currentObject = child.gameObject;
                         if (Regex.IsMatch(currentObject.name, ".*" + doorNumber + ".*")) continue;
                         currentObject.SetActive(false);
                     }
 
-                    if (roomState ==0){
- other.gameObject.transform.position += pushDirection;
-                        doorCollider.isTrigger = false; 
+                    if (roomState ==0){ // lock up to room. 
+                    other.gameObject.transform.position += pushDirection;
+                        ToggleDoors(false); 
+                    spriteRenderer.sprite = closedSprite;
+
+                        // if the door has children loop through and change animation for those too 
+                        foreach(Transform childDoor in gameObject.transform){
+                                SpriteRenderer childSprite = childDoor.gameObject.GetComponent<SpriteRenderer>();
+                                if (childSprite) childSprite.sprite=  closedSprite;
+                        }
                     }  
                     if (roomState ==2){
                         other.gameObject.transform.position += pushDirection;
@@ -78,9 +88,25 @@ public class Door : MonoBehaviour
         }
     }
     public void OpenDoor(){ //player has cleared room 
+               ToggleDoors(true);
         doorCollider.isTrigger = true; // can pass through
         roomState =1;
-        
+        spriteRenderer.sprite = openSprite;
+                 foreach(Transform childDoor in gameObject.transform){
+                                SpriteRenderer childSprite = childDoor.gameObject.GetComponent<SpriteRenderer>();
+                                if (childSprite) childSprite.sprite=  openSprite;
+                        }
     }
+    private void ToggleDoors(bool toggle){
+            //doorCollider.isTrigger = toggle;
+
+            foreach(Transform childDoor in gameObject.transform){
+                Collider2D col = childDoor.gameObject.GetComponent<Collider2D>();
+                if(col) col.isTrigger = toggle;
+            
+            }
+
+    }
+
 
 }

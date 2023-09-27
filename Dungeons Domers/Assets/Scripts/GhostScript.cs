@@ -27,7 +27,7 @@ public class GhostScript : MonoBehaviour
 
 
     void OnTriggerEnter2D(Collider2D col){
-
+        
         if (col.gameObject == player){
             col.gameObject.GetComponent<PlayerController>().TakeDamage(attack, transform.position);
             gameObject.GetComponent<enemyScript>().TakeDamage(10000f); // killing itself for 'explosion' 
