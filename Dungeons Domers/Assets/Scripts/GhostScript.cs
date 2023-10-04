@@ -23,11 +23,12 @@ public class GhostScript : MonoBehaviour
         animator.SetFloat("moveY", movePosition.y);
 
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+    
     }
 
 
     void OnTriggerEnter2D(Collider2D col){
-        
+
         if (col.gameObject == player){
             col.gameObject.GetComponent<PlayerController>().TakeDamage(attack, transform.position);
             gameObject.GetComponent<enemyScript>().TakeDamage(10000f); // killing itself for 'explosion' 

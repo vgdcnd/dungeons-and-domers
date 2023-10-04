@@ -32,6 +32,7 @@ public class Door : MonoBehaviour
             if (downFacing) pushDirection = new Vector3(0,1f,0); 
             else if (upFacing) pushDirection = new Vector3(0, -1f,0);
             else if(rightFacing) pushDirection = new Vector3(-1f, 0, 0);
+            else pushDirection = new Vector3(1f, 0, 0);
 
             Walls = GameObject.Find("WallsGrid");
             Hall = GameObject.FindWithTag("Hall");
@@ -98,7 +99,7 @@ public class Door : MonoBehaviour
                         }
     }
     private void ToggleDoors(bool toggle){
-            //doorCollider.isTrigger = toggle;
+            doorCollider.isTrigger = toggle;
 
             foreach(Transform childDoor in gameObject.transform){
                 Collider2D col = childDoor.gameObject.GetComponent<Collider2D>();

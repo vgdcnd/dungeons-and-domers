@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Animator animator;
+    private Rigidbody2D rb;
+    private Animator animator;
 
     // Movement variables
     [SerializeField] private float speed;   
+
     private Vector2 moveDirection;
     private bool canMove = true;
         //Force variables
@@ -36,18 +37,23 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMove = new Vector2 (0,-1); //start the player facing down
 
     //new 
-    public Vector3 lastPosition;
+    [SerializeField] private int fallDamage;
+                    private Vector2 fallDirection;
+                    public float fallDistance;
+
     [SerializeField] Image healthBar;
 
 
     void Start(){
         firePoint = gameObject.transform.GetChild(0); //might just make it serialized and drag it in, wanted to try another method tho
         max_health = health;
-        /*
-            Screen.SetResolution (1920, 1080, false);
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+        
+            Screen.SetResolution (1920, 1080, false); // sets frame rate and stuff for testing
     QualitySettings.vSyncCount = 0;
     Application.targetFrameRate = 60;
-        */
+        
     }
 
     void Update()
@@ -131,7 +137,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(0,0);
     }
 
-    void Animate(){
+    private void Animate(){
           animator.SetFloat("moveX", moveDirection.x);
             animator.SetFloat("moveY", moveDirection.y);
             animator.SetFloat("speed", moveDirection.sqrMagnitude);
@@ -177,6 +183,35 @@ public class PlayerController : MonoBehaviour
         Invoke("DealWithIFrames", iFrameCount); //for iFrameCount, player will have cangetHit be false meaning they wont be able to take dmg for shot tamount of time 
     }
 
+    public void Fall(){ // called by fall pit objects
+     //Debug.Log("RIGID: "  + rb.velocity.x + " " + rb.velocity.y);
+
+     if (!(rb.velocity.x ==rb.velocity.y && rb.velocity.y ==0)){ // both x and y velocity are 0
+        fallDirection.x = rb.velocity.x;
+        fallDirection.y = rb.velocity.y;
+     }
+         // Debug.Log(fallDirection.x + " "+ fallDirection.y);
+     transform.position += new Vector3 (rb.velocity.x * fallDistance, rb.velocity.y * fallDistance, 0);
+        health -=fallDamage;
+     
+        if (healthBar) healthBar.fillAmount = health / max_health;
+        DisableMove();
+        animator.Play("Player_Fall");
+       
+        // issues/things to fix/add
+        // disable player hit box for while they are falling
+            // would make sure enemies dont hurt player / no effects happen to player while they fall 
+        // make the player skootch into the pit a bit more
+            // just better visual tbh 
+            // also need to put player back to pre skootch area
+
+    }
+
+    public void Land(){ // called by player animator at the end of fall animation
+        transform.position -= new Vector3(fallDirection.x * (fallDistance*2f), fallDirection.y *(fallDistance*2f), 0);
+        
+        EnableMove();
+    }
     public void DealWithIFrames(){
     
         canGetHit = true;
@@ -192,12 +227,13 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Spawned");
          // here
-         
+         /*
         if (lastPosition != null)
         {
             transform.position = lastPosition;
             Debug.Log(lastPosition);
         }
+            */
     }
     
 
