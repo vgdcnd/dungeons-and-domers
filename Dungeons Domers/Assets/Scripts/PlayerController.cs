@@ -10,13 +10,12 @@ public class PlayerController : MonoBehaviour
 
     // Movement variables
     [SerializeField] private float speed;   
-
     private Vector2 moveDirection;
     private bool canMove = true;
         //Force variables
-        [SerializeField] private float dampForce;
-        [SerializeField] private float forceScale;
-        private Vector2 addedForce;
+    [SerializeField] private float dampForce;
+    [SerializeField] private float forceScale;
+    private Vector2 addedForce;
 
     //Sword swing variables
     [SerializeField] private float attackDelay;
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     private bool swinging = false; // makes sure ontrigger enter that the trigger is from sword swinging and not just enemy has a trigger
     private float lastAttack = -Mathf.Infinity;
- 
     //Damage Variables
     [SerializeField] private float iFrameCount;   
     private bool canGetHit = true;
@@ -35,11 +33,11 @@ public class PlayerController : MonoBehaviour
     private Transform firePoint;
     [SerializeField] GameObject bullet;
     private Vector2 lastMove = new Vector2 (0,-1); //start the player facing down
-
-    //new 
+    //Falling variables 
     [SerializeField] private int fallDamage;
                     private Vector2 fallDirection;
                     public float fallDistance;
+    private CameraController camera;
 
     [SerializeField] Image healthBar;
 
@@ -50,6 +48,7 @@ public class PlayerController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         
+        camera = GameObject.Find("Main Camera").GetComponent<CameraController>();
             Screen.SetResolution (1920, 1080, false); // sets frame rate and stuff for testing
     QualitySettings.vSyncCount = 0;
     Application.targetFrameRate = 60;
@@ -77,8 +76,8 @@ public class PlayerController : MonoBehaviour
         float   moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
 
-        if(Input.GetButtonDown("Swing")) Swing();
-        else if(Input.GetButtonDown("Shoot")) Shoot();
+        if(Input.GetButtonDown("Swing") && canMove) Swing();
+        else if(Input.GetButtonDown("Shoot") && canMove) Shoot();
     }
     void Move(){
 
@@ -122,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
    public void CreateBullet(){
         GameObject spawnedBullet = Instantiate(bullet, firePoint.position, firePoint.rotation);
-        spawnedBullet.GetComponent<ProjectileScript>().SetUpProjectile(7f, lastMove);
+        spawnedBullet.GetComponent<ProjectileScript>().SetUpProjectile(7f, lastMove); 
 
     }
    
@@ -184,31 +183,26 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Fall(){ // called by fall pit objects
-     //Debug.Log("RIGID: "  + rb.velocity.x + " " + rb.velocity.y);
 
-     if (!(rb.velocity.x ==rb.velocity.y && rb.velocity.y ==0)){ // both x and y velocity are 0
+    rb.simulated = false;
+    camera.enabled = false; // turn off the camera movement while falling so camera doesnt jitter as player transform is moved around
+     if (!(rb.velocity.x ==rb.velocity.y && rb.velocity.y ==0)){ // at least one of the directions are not 0 
         fallDirection.x = rb.velocity.x;
         fallDirection.y = rb.velocity.y;
      }
          // Debug.Log(fallDirection.x + " "+ fallDirection.y);
-     transform.position += new Vector3 (rb.velocity.x * fallDistance, rb.velocity.y * fallDistance, 0);
+        transform.position += new Vector3 (rb.velocity.x * fallDistance, rb.velocity.y * fallDistance, 0); // make the player push into the pit a bit 
         health -=fallDamage;
      
         if (healthBar) healthBar.fillAmount = health / max_health;
         DisableMove();
         animator.Play("Player_Fall");
-       
-        // issues/things to fix/add
-        // disable player hit box for while they are falling
-            // would make sure enemies dont hurt player / no effects happen to player while they fall 
-        // make the player skootch into the pit a bit more
-            // just better visual tbh 
-            // also need to put player back to pre skootch area
-
     }
 
     public void Land(){ // called by player animator at the end of fall animation
-        transform.position -= new Vector3(fallDirection.x * (fallDistance*2f), fallDirection.y *(fallDistance*2f), 0);
+        camera.enabled = true;
+        rb.simulated = true;
+        transform.position -= new Vector3(fallDirection.x * (fallDistance*2f), fallDirection.y *(fallDistance*2f), 0); // push player out of the hole
         
         EnableMove();
     }
@@ -225,7 +219,7 @@ public class PlayerController : MonoBehaviour
     public void SpawnPlayer()
     {
 
-        Debug.Log("Spawned");
+        Debug.Log("Spawned"); 
          // here
          /*
         if (lastPosition != null)

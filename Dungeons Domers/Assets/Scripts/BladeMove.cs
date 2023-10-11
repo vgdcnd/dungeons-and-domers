@@ -22,7 +22,7 @@ public class BladeMove : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         startingPoint = gameObject.transform.position; // used to find out where to return to
-         Debug.Log("START: " + startingPoint.x + " " + startingPoint.y);
+        // Debug.Log("START: " + startingPoint.x + " " + startingPoint.y);
     }
 
     // Update is called once per frame

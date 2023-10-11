@@ -6,9 +6,10 @@ public class BatMove : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
+    private Transform playerPos;
     void Start()
     {
-
+ playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -19,9 +20,9 @@ public class BatMove : MonoBehaviour
 
     void FixedUpdate(){
 
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        
 
-        transform.position = Vector3.MoveTowards(transform.position, playerPos, speed);
+        transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed);
 
     }
 

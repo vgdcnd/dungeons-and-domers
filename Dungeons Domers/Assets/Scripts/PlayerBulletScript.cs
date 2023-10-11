@@ -9,7 +9,7 @@ public class PlayerBulletScript : ProjectileScript
     [SerializeField] private int damage;
 
     public override void OnTriggerEnter2D(Collider2D hit){
-         if(hit.gameObject.tag == "Enemy"){
+         if(hit.gameObject.tag == "Enemy"){ // 
         hit.gameObject.GetComponent<enemyScript>().TakeDamage(damage);
     //    Debug.Log("Dealt: " + damage.ToString());
 

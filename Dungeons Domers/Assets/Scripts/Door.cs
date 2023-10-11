@@ -43,7 +43,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.name == "Player")
         {
             if(roomState == 1) { // ENTERING HALLWAY
                     Hall.SetActive(true);
