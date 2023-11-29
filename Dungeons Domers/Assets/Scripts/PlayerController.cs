@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -196,6 +197,7 @@ public class PlayerController : MonoBehaviour
      
         if (healthBar) healthBar.fillAmount = health / max_health;
         DisableMove();
+        if (health <= 0) Invoke("Die", .25f);
         animator.Play("Player_Fall");
     }
 
@@ -212,7 +214,8 @@ public class PlayerController : MonoBehaviour
     }
 
  public void Die(){
-        Debug.Log("Dead");
+   Debug.Log("Dead");
+     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);   
  }
 
     

@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   defense: 0
-  attack: 0
+  attack: 10
   deathEffect: {fileID: 8819546955495785193, guid: eda23020fea0dcf4591f9b3bf9cc78d9, type: 3}
   respawn: 0
   hurtEffect: {fileID: 2100000, guid: 8683f770bd63a7342961456b0e026c18, type: 2}

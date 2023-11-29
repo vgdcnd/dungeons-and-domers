@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 public class Door : MonoBehaviour
 {
     // may want to have door be a sepearte object outside of tile set so that can easily change sprite depenign on if it is locked or not
-    private GameObject Hall, Walls;
+    [SerializeField] private GameObject Hall, Walls;
 
     private SpriteRenderer spriteRenderer;
     public GameObject Room;
@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
     //private GameObject Walls;
 
     private Collider2D doorCollider; // can hard set in editor
-    private int roomState = 0; 
+    [SerializeField] private int roomState = 0; 
     /*
     ROOM STATE:
     0 -> player can enter room. if they enter room becomes locked until they clear. 
@@ -34,11 +34,20 @@ public class Door : MonoBehaviour
             else if(rightFacing) pushDirection = new Vector3(-1f, 0, 0);
             else pushDirection = new Vector3(1f, 0, 0);
 
-            Walls = GameObject.Find("WallsGrid");
-            Hall = GameObject.FindWithTag("Hall");
+            if (Walls ==null)Walls = GameObject.Find("WallsGrid");
+            if (Hall == null) Hall = GameObject.FindWithTag("Hall");
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             doorCollider = gameObject.GetComponent<Collider2D>();
-    
+            if (roomState ==1){
+                ToggleDoors(false); 
+                    spriteRenderer.sprite = closedSprite;
+
+                        // if the door has children loop through and change animation for those too 
+                        foreach(Transform childDoor in gameObject.transform){
+                                SpriteRenderer childSprite = childDoor.gameObject.GetComponent<SpriteRenderer>();
+                                if (childSprite) childSprite.sprite=  closedSprite;  
+            }
+    }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
