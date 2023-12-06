@@ -274,11 +274,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4853559365209468842, guid: 0cfcb6dc5b4ab1a4babd0573d37222e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.13
+      value: -5.13
       objectReference: {fileID: 0}
     - target: {fileID: 4853559365209468842, guid: 0cfcb6dc5b4ab1a4babd0573d37222e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.82
+      value: -9.26
       objectReference: {fileID: 0}
     - target: {fileID: 4853559365209468842, guid: 0cfcb6dc5b4ab1a4babd0573d37222e9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 318916471}
+  demoCleared: 0
 --- !u!1 &131958786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 1956914449}
+  demoCleared: 0
 --- !u!1 &170832168
 GameObject:
   m_ObjectHideFlags: 0
@@ -3864,7 +3866,7 @@ Transform:
   m_Children:
   - {fileID: 1802677066}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &455347554
 PrefabInstance:
@@ -6693,7 +6695,7 @@ Transform:
   - {fileID: 1747268503}
   - {fileID: 1551632671}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &599330494
 GameObject:
@@ -6912,7 +6914,7 @@ Transform:
   - {fileID: 2000478141}
   - {fileID: 2050950941}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &738929228
 GameObject:
@@ -6945,7 +6947,7 @@ Transform:
   - {fileID: 153473236}
   - {fileID: 599330495}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &775673660
 PrefabInstance:
@@ -7146,7 +7148,7 @@ Transform:
   - {fileID: 170832169}
   - {fileID: 1450670744}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &820536801
 Grid:
@@ -7590,16 +7592,6 @@ Tilemap:
   m_GameObject: {fileID: 920603316}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 16, y: -19, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 8
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 20, y: -7, z: 0}
     second:
       serializedVersion: 2
@@ -8038,7 +8030,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 8bf14abed93769e4982acfdd50499d82, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 22e74c69b61df20478ecad117ed47fdb, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 73d3c0d4f072821418fd96c9d282cc65, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
@@ -8057,10 +8049,10 @@ Tilemap:
     m_Data: {fileID: -1356473747, guid: 011c6d41c77d860499bea43ba85441a0, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 2126084179, guid: 011c6d41c77d860499bea43ba85441a0, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: -435862073, guid: 011c6d41c77d860499bea43ba85441a0, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 43
+  - m_RefCount: 42
     m_Data:
       e00: 1
       e01: 0
@@ -8079,7 +8071,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 43
+  - m_RefCount: 42
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -8790,7 +8782,7 @@ Transform:
   m_Children:
   - {fileID: 1836631126}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1220816256
 Grid:
@@ -9438,6 +9430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 566259180}
+  demoCleared: 1
 --- !u!1 &1374749674
 GameObject:
   m_ObjectHideFlags: 0
@@ -9469,7 +9462,7 @@ Transform:
   - {fileID: 1371952239}
   - {fileID: 335730139}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1393659167
 GameObject:
@@ -9686,9 +9679,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 599330495}
     m_Modifications:
+    - target: {fileID: 4409855868376166688, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
+      propertyPath: blockSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4409855868376166715, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
       propertyPath: m_Name
       value: BladeTrap
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409855868376166715, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4409855868376166719, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
       propertyPath: m_RootOrder
@@ -9696,7 +9697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4409855868376166719, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.5
+      value: -6.02
       objectReference: {fileID: 0}
     - target: {fileID: 4409855868376166719, guid: 616cca019e7c81a4ab9b1c83aecb76b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12699,6 +12700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 228211467}
+  demoCleared: 0
 --- !u!1 &1802677065
 GameObject:
   m_ObjectHideFlags: 0
@@ -16370,7 +16372,7 @@ Transform:
   - {fileID: 102784729}
   - {fileID: 1905164301}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981419079
 GameObject:
@@ -16588,6 +16590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorToOpen: {fileID: 558612338}
+  demoCleared: 0
 --- !u!4 &2003199633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2708576315115979937, guid: 4e75520bab7625f41a35e58625909102, type: 3}

@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
 
     private Collider2D doorCollider; // can hard set in editor
     [SerializeField] private int roomState = 0; 
+    private bool firstClear = true;
     /*
     ROOM STATE:
     0 -> player can enter room. if they enter room becomes locked until they clear. 
@@ -55,6 +56,7 @@ public class Door : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             if(roomState == 1) { // ENTERING HALLWAY
+
                     Hall.SetActive(true);
             Room.SetActive(false);
 
@@ -62,6 +64,10 @@ public class Door : MonoBehaviour
                         child.gameObject.SetActive(true);
                     }
                 other.gameObject.transform.position += (pushDirection * -1);
+                if (firstClear){
+                    other.gameObject.GetComponent<PlayerController>().roomCount +=1;
+                    firstClear = false;
+                }
                 roomState = 2;
 
             }

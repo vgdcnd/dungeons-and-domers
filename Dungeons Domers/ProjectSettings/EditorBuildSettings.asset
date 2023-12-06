@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Retry.unity
     guid: 9f034a6b6e7036d4ebf61188ceb935a2
+  - enabled: 1
+    path: Assets/Scenes/_End_Screen.unity
+    guid: 8f00c0dee3f36ff45b139b3dd2968895
   m_configObjects: {}

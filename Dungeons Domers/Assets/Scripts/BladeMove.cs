@@ -14,10 +14,12 @@ public class BladeMove : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 startingPoint;
 
-    private Vector2 preTurnVelocity; // when block hits static object it loses velocity, will save the velocity before it hits to restore it later
+    private Vector2 direction; // when block hits static object it loses velocity, will save the velocity before it hits to restore it later
 
     private bool searching = true; // says if block is at starting point and looking for player
     private bool reverse = false; // says if block is going back to find starting point
+
+    private bool moving = false;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -30,7 +32,13 @@ public class BladeMove : MonoBehaviour
         //if (rb.velocity) Debug.Log("moving");
         
        if (searching) FireRays();
-       else if (reverse) CheckPoint();
+
+       else if (reverse) {
+         transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingPoint.x , startingPoint.y, transform.position.z), blockSpeed);
+        CheckPoint();
+        Debug.Log("BACK");
+       }
+       if (moving)  transform.position = Vector3.MoveTowards(transform.position, new Vector3(direction.x, direction.y, transform.position.z), blockSpeed);
     }
 
    void FireRays(){        
@@ -77,31 +85,35 @@ public class BladeMove : MonoBehaviour
         //RIGHT
                 hit= Physics2D.Raycast(transform.position + new Vector3(blockSize, blockSize/2,0), transform.right , 100); 
                 if (hit.collider != null && hit.collider.gameObject.name == "Player") {
-                    FoundPlayer(new Vector2(1,0));
+                    FoundPlayer(new Vector2(100f + transform.position.x,transform.position.y));
                     return;
                 }
                 hit = Physics2D.Raycast(transform.position + new Vector3(blockSize, -blockSize/2,0), transform.right , 100);
                    if (hit.collider != null && hit.collider.gameObject.name == "Player") {
-                    FoundPlayer(new Vector2(1,0));
+                    FoundPlayer(new Vector2(100f + transform.position.x,transform.position.y));
                     return;
                 }
         // LEFT
            hit= Physics2D.Raycast(transform.position + new Vector3(-blockSize, blockSize/2,0), -1*transform.right , 100); 
                 if (hit.collider != null && hit.collider.gameObject.name == "Player") {
-                    FoundPlayer(new Vector2(-1,0));
+                    FoundPlayer(new Vector2(-100f + transform.position.x,transform.position.y));
                     return;
                 }
                 hit = Physics2D.Raycast(transform.position + new Vector3(-blockSize, -blockSize/2,0), -1 *transform.right , 100);
                    if (hit.collider != null && hit.collider.gameObject.name == "Player") {
-                    FoundPlayer(new Vector2(-1,0));
+                    FoundPlayer(new Vector2(-100f + transform.position.x,transform.position.y));
                     return;
                 }
 
     } 
-    void FoundPlayer(Vector2 direction){
+    void FoundPlayer(Vector2 dir){
         searching = false;
-        rb.velocity = direction * blockSpeed;
-        preTurnVelocity = rb.velocity;
+        moving = true;
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(dir.x, dir.y, transform.position.z), blockSpeed);
+        direction = dir;
+        Debug.Log("Found");
+        //rb.velocity = direction * blockSpeed;
+        //preTurnVelocity = rb.velocity;
     }
     void CheckPoint(){
         if (Mathf.Abs(Vector3.Distance(transform.position, startingPoint)) <= minCheck) // if we are close to starting point reset block
@@ -110,6 +122,7 @@ public class BladeMove : MonoBehaviour
                 transform.position = startingPoint;
                 reverse = false;
                 Invoke("Reset", blockResetTime);
+                Debug.Log("YUR");
             }
     }
 
@@ -120,9 +133,10 @@ public class BladeMove : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
                 //preTurnVelocity = rb.velocity;
                 
-        if (!reverse){
-            rb.velocity = preTurnVelocity *-1;
+        if (!reverse){ 
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(startingPoint.x , startingPoint.y, transform.position.z), blockSpeed);
         reverse = true; //going back now
+        //Debug.Log(col.gameObject.name);
         }
  
         if (col.gameObject.name == "Player")col.gameObject.GetComponent<PlayerController>().TakeDamage(blockDamage, transform.position);

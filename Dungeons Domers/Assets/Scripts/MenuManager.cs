@@ -33,8 +33,13 @@ public class MenuManager : MonoBehaviour
     public void PrevScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);   
     }
-     public void PrevPrevScene(){
+
+
+        public void PrevPrevScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -2);   
     }
-
+ 
+    public void MainScene(){
+        SceneManager.LoadScene(1);   
+    }
 }

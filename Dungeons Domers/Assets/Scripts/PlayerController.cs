@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Image healthBar;
 
+    public int roomCount = 0;
+
 
     void Start(){
         firePoint = gameObject.transform.GetChild(0); //might just make it serialized and drag it in, wanted to try another method tho
@@ -215,6 +217,7 @@ public class PlayerController : MonoBehaviour
 
  public void Die(){
    Debug.Log("Dead");
+   GameObject.Find("ScoreFloater").GetComponent<Floater>().SetScore(roomCount + 1);
      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);   
  }
 
